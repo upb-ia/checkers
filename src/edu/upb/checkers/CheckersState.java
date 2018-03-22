@@ -62,14 +62,14 @@ public class CheckersState {
                 char[][] newBoard = cloneBoard();
                 newBoard[ i - i_inc ][ j - 1 ] = newBoard[ i ][ j ];
                 newBoard[ i ][ j ] = ' ';
-                children.add(new CheckersState( otherPlayer(), newBoard ))
+                children.add(new CheckersState( otherPlayer(), newBoard ));
             }
             if ( isInBoard( i - i_inc, j + 1 )
                     && board[ i - i_inc ][ j + 1 ] == ' ' ) {
                 char[][] newBoard = cloneBoard();
                 newBoard[ i - i_inc ][ j + 1 ] = newBoard[ i ][ j ];
                 newBoard[ i ][ j ] = ' ';
-                children.add(new CheckersState( otherPlayer(), newBoard ))
+                children.add(new CheckersState( otherPlayer(), newBoard ));
             }
         }
     }
@@ -80,14 +80,14 @@ public class CheckersState {
             char[][] newBoard = cloneBoard();
             newBoard[ i + i_inc ][ j - 1 ] = newBoard[ i ][ j ];
             newBoard[ i ][ j ] = ' ';
-            children.add(new CheckersState( otherPlayer(), newBoard ))
+            children.add(new CheckersState( otherPlayer(), newBoard ));
         }
         if ( isInBoard( i + i_inc, j + 1 )
                 && board[ i + i_inc ][ j + 1 ] == ' ' ) {
             char[][] newBoard = cloneBoard();
             newBoard[ i + i_inc ][ j + 1 ] = newBoard[ i ][ j ];
             newBoard[ i ][ j ] = ' ';
-            children.add(new CheckersState( otherPlayer(), newBoard ))
+            children.add(new CheckersState( otherPlayer(), newBoard ));
         }
     }
 
