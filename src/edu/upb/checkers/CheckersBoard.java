@@ -52,6 +52,16 @@ public class CheckersBoard {
         return j >= 0 && j < 8 && i < 8 && i >= 0;
     }
 
+    protected char[][] cloneBoard() {
+        char[][] result = new char[ 8 ][ 8 ];
+        for ( int i = 0; i < 8; i++ ) {
+            for ( int j = 0; j < 8; j++ ) {
+                result[ i ][ j ] = board[ i ][ j ];
+            }
+        }
+        return result;
+    }
+
     public boolean isCapturePossible() {
         int direction = getDirection();
         for ( int i = 0; i < 8; i++ ) {
@@ -226,10 +236,32 @@ public class CheckersBoard {
 
     void printBoard() {
         System.out.println("Turno actual : " + currentPlayer );
+        System.out.println("  0  1 2 3  4  5  6 7");
         for ( int i = 0; i < 8; i++ ) {
+            System.out.print(i+" ");
             for ( int j = 0; j < 8; j++ ) {
-                System.out.print( board[ i ][ j ] );
-                System.out.print( " " );
+                if (board[i][j]=='X') {
+                    System.out.print("\u2588\u2588");
+                } else {
+//                    System.out.print( "  " );
+                    /*
+                    switch ( board[ i ][ j ] ) {
+                        case 'n':
+                            System.out.print( '\u26AB' );
+                            break;
+                        case 'b':
+                            System.out.print( '\u26AA' );
+                            break;
+                        case 'N':
+                            System.out.print( '\u265B' );
+                            break;
+                        case 'B':
+                            System.out.print( '\u2655' );
+                            break;
+                    }*/
+                    System.out.print( board[ i ][ j ] );
+                    System.out.print( "  " );
+                }
             }
             System.out.println();
         }
