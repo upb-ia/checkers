@@ -83,7 +83,7 @@ public class CheckersBoard {
                     return true;
 
                 }
-                if ( isCrowned( board[i][j] )) {
+                if ( isCrowned( board[ i ][ j ] ) ) {
                     if ( isInBoard( i - ( direction * 2 ), j - 2 )
                             && currentPlayer == Character.toLowerCase( board[ i ][ j ] )
                             && Character.toLowerCase( board[ i - direction ][ j - 1 ] ) == otherPlayer()
@@ -108,99 +108,98 @@ public class CheckersBoard {
         return false;
     }
 
-    protected boolean isCapturePossible(int i, int j, int i2, int j2){
+    protected boolean isCapturePossible( int i, int j, int i2, int j2 ) {
         int direction = getDirection();
 
-
-        if(!isInBoard( i, j ) || !isInBoard( i2,j2 )) {
+        if ( !isInBoard( i, j ) || !isInBoard( i2, j2 ) ) {
             return false;
         }
-        if ( !belongsToCurrentPlayer( board[i][j] )) {
-            return false;
-        }
-
-        if( Math.abs(i2-i)!=2 || Math.abs(j2-j)!=2) {
+        if ( !belongsToCurrentPlayer( board[ i ][ j ] ) ) {
             return false;
         }
 
-        int jMedio = (j +j2)/2;
-        int iMedio = (i+i2)/2;
-
-        if (board[i2][j2]!= ' '){
+        if ( Math.abs( i2 - i ) != 2 || Math.abs( j2 - j ) != 2 ) {
             return false;
         }
-        if(Character.toLowerCase(board[iMedio][jMedio])!=otherPlayer()){
+
+        int jMedio = ( j + j2 ) / 2;
+        int iMedio = ( i + i2 ) / 2;
+
+        if ( board[ i2 ][ j2 ] != ' ' ) {
+            return false;
+        }
+        if ( Character.toLowerCase( board[ iMedio ][ jMedio ] ) != otherPlayer() ) {
             return false;
 
         }
-        if(!isCrowned( board[i][j] ) && i2-i != 2*direction){
+        if ( !isCrowned( board[ i ][ j ] ) && i2 - i != 2 * direction ) {
             return false;
         }
 
         return true;
     }
 
-    protected boolean move(int i, int j, int i2, int j2) {
-        if(!isInBoard( i, j ) || !isInBoard( i2,j2 )) {
+    protected boolean move( int i, int j, int i2, int j2 ) {
+        if ( !isInBoard( i, j ) || !isInBoard( i2, j2 ) ) {
             return false;
         }
-        if (Math.abs( i2-i )!=1 || Math.abs( j2 - j ) != 1){
+        if ( Math.abs( i2 - i ) != 1 || Math.abs( j2 - j ) != 1 ) {
             return false;
         }
 
-        if (!isCrowned( board[i][j])  && i2-i != getDirection()) {
-            return  false;
+        if ( !isCrowned( board[ i ][ j ] ) && i2 - i != getDirection() ) {
+            return false;
         }
 
-        if(!belongsToCurrentPlayer(board[i][j])) {
+        if ( !belongsToCurrentPlayer( board[ i ][ j ] ) ) {
             return false;
         }
-        if(board[i2][j2] != ' ') {
+        if ( board[ i2 ][ j2 ] != ' ' ) {
             return false;
         }
-        board[i][j] = ' ';
-        board[i2][j2] = currentPlayer;
+        board[ i ][ j ] = ' ';
+        board[ i2 ][ j2 ] = currentPlayer;
         currentPlayer = otherPlayer();
         return true;
     }
 
-    protected boolean capture(int i, int j, int i2, int j2){
+    protected boolean capture( int i, int j, int i2, int j2 ) {
 
-        if(!isCapturePossible(i, j, i2, j2 )){
+        if ( !isCapturePossible( i, j, i2, j2 ) ) {
             return false;
         }
-        int jMedio = (j +j2)/2;
-        int iMedio = (i+i2)/2;
+        int jMedio = ( j + j2 ) / 2;
+        int iMedio = ( i + i2 ) / 2;
 
-        board[i2][j2] = board[i][j];
-        board[i][j] = ' ';
-        board[iMedio][jMedio] = ' ';
-        if (!isCapturePossibleForOnePiece(i2, j2)) {
+        board[ i2 ][ j2 ] = board[ i ][ j ];
+        board[ i ][ j ] = ' ';
+        board[ iMedio ][ jMedio ] = ' ';
+        if ( !isCapturePossibleForOnePiece( i2, j2 ) ) {
             currentPlayer = otherPlayer();
         }
         return true;
     }
 
-    protected boolean isCapturePossibleForOnePiece(int i, int j){
+    protected boolean isCapturePossibleForOnePiece( int i, int j ) {
 
-        return isCapturePossible(i,j,i-2,j-2) || isCapturePossible(i,j,i-2,j+2)
-                || isCapturePossible(i,j,i+2,j-2) || isCapturePossible(i,j,i+2,j+2);
+        return isCapturePossible( i, j, i - 2, j - 2 ) || isCapturePossible( i, j, i - 2, j + 2 )
+                || isCapturePossible( i, j, i + 2, j - 2 ) || isCapturePossible( i, j, i + 2, j + 2 );
     }
 
-    protected boolean moveWithCapturedCheck(int i, int j, int i2, int j2){
-        if (isCapturePossibleForOnePiece( i, j )) {
+    protected boolean moveWithCapturedCheck( int i, int j, int i2, int j2 ) {
+        if ( isCapturePossible() ) {
             return false;
         }
         return move( i, j, i2, j2 );
     }
 
     public void crown() {
-        for(int j=0;j<8;j++) {
-            if (board[0][j] == 'n') {
-                board[0][j] = 'N';
+        for ( int j = 0; j < 8; j++ ) {
+            if ( board[ 0 ][ j ] == 'n' ) {
+                board[ 0 ][ j ] = 'N';
             }
-            if (board[7][j] == 'b') {
-                board[7][j] = 'B';
+            if ( board[ 7 ][ j ] == 'b' ) {
+                board[ 7 ][ j ] = 'B';
             }
         }
     }
@@ -212,11 +211,11 @@ public class CheckersBoard {
         return 'b';
     }
 
-    protected int countPieces(char player) {
+    protected int countPieces( char player ) {
         int counter = 0;
-        for (int i=0;i<8;i++) {
-            for (int j=0;j<8;j++) {
-                if (Character.toLowerCase( board[i][j] ) == player) {
+        for ( int i = 0; i < 8; i++ ) {
+            for ( int j = 0; j < 8; j++ ) {
+                if ( Character.toLowerCase( board[ i ][ j ] ) == player ) {
                     counter++;
                 }
             }
@@ -225,23 +224,23 @@ public class CheckersBoard {
     }
 
     protected char checkVictory() {
-        if (countPieces( currentPlayer ) == 0) {
+        if ( countPieces( currentPlayer ) == 0 ) {
             return otherPlayer();
         }
-        if (countPieces( otherPlayer() ) == 0) {
+        if ( countPieces( otherPlayer() ) == 0 ) {
             return currentPlayer;
         }
         return ' ';
     }
 
     void printBoard() {
-        System.out.println("Turno actual : " + currentPlayer );
-        System.out.println("  0  1 2 3  4  5  6 7");
+        System.out.println( "Turno actual : " + currentPlayer );
+        System.out.println( "  0  1  2  3  4  5  6  7" );
         for ( int i = 0; i < 8; i++ ) {
-            System.out.print(i+" ");
+            System.out.print( i + " " );
             for ( int j = 0; j < 8; j++ ) {
-                if (board[i][j]=='X') {
-                    System.out.print("\u2588\u2588");
+                if ( board[ i ][ j ] == 'X' ) {
+                    System.out.print( "x  " );
                 } else {
 //                    System.out.print( "  " );
                     /*
