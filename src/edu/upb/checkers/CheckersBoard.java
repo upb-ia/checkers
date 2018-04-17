@@ -7,6 +7,15 @@ public class CheckersBoard {
 
     char[][] board = new char[ 8 ][ 8 ];
     char currentPlayer;
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
     // X bloqueado
     // ' ' vacio
@@ -254,35 +263,31 @@ public class CheckersBoard {
 
     void printBoard() {
         System.out.println( "Turno actual : " + currentPlayer );
-        System.out.println( "  0  1  2  3  4  5  6  7" );
+        System.out.println( ANSI_GREEN + "  0  1  2  3  4  5  6  7" );
         for ( int i = 0; i < 8; i++ ) {
-            System.out.print( i + " " );
+            System.out.print( ANSI_GREEN + i + " " );
             for ( int j = 0; j < 8; j++ ) {
                 if ( board[ i ][ j ] == 'X' ) {
-                    System.out.print( "x  " );
+                    System.out.print( ANSI_PURPLE + "x  " );
                 } else {
 //                    System.out.print( "  " );
-                    /*
                     switch ( board[ i ][ j ] ) {
                         case 'n':
-                            System.out.print( '\u26AB' );
+                        case 'N':
+                            System.out.print(ANSI_RED);
                             break;
                         case 'b':
-                            System.out.print( '\u26AA' );
-                            break;
-                        case 'N':
-                            System.out.print( '\u265B' );
-                            break;
                         case 'B':
-                            System.out.print( '\u2655' );
+                            System.out.print(ANSI_BLACK);
                             break;
-                    }*/
+                    }
+
                     System.out.print( board[ i ][ j ] );
                     System.out.print( "  " );
                 }
             }
             System.out.println();
         }
-        System.out.println();
+        System.out.println(ANSI_RESET);
     }
 }
