@@ -157,8 +157,8 @@ public class CheckersBoard {
         if ( board[ i2 ][ j2 ] != ' ' ) {
             return false;
         }
+        board[ i2 ][ j2 ] = board[ i ][ j ];
         board[ i ][ j ] = ' ';
-        board[ i2 ][ j2 ] = currentPlayer;
         currentPlayer = otherPlayer();
         return true;
     }
@@ -231,6 +231,25 @@ public class CheckersBoard {
             return currentPlayer;
         }
         return ' ';
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+         sb.append( "  0  1  2  3  4  5  6  7\n" );
+        for ( int i = 0; i < 8; i++ ) {
+            sb.append( i + " " );
+            for ( int j = 0; j < 8; j++ ) {
+                if ( board[ i ][ j ] == 'X' ) {
+                    sb.append( "x  " );
+                } else {
+                    sb.append( board[ i ][ j ] );
+                    sb.append( "  " );
+                }
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     void printBoard() {

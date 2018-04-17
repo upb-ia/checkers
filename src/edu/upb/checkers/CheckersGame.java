@@ -27,7 +27,8 @@ public class CheckersGame extends CheckersBoard {
                 i2 = bestChild.getI2();
                 j = bestChild.getJ();
                 j2 = bestChild.getJ2();
-                System.err.println("i: " + i + " j: " + j +" i2: " + i2 +" j2: " + j2   );
+                System.err.println( "i: " + i + " j: " + j + " i2: " + i2 + " j2: " + j2 );
+                System.err.flush();
             }
             if ( Math.abs( i2 - i ) == 1 ) {
                 if (!onePiece.moveWithCapturedCheck( i, j, i2, j2 )) {
@@ -41,6 +42,8 @@ public class CheckersGame extends CheckersBoard {
             onePiece.crown();
         }
         while ( onePiece.checkVictory() == ' ' );
+        System.out.println("GAME OVER");
+        onePiece.printBoard();
         scan.close();
     }
 }

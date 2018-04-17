@@ -52,12 +52,13 @@ public class CheckersState extends CheckersBoard {
         for ( int i = 0; i < 8; i++ ) {
             for ( int j = 0; j < 8; j++ ) {
                 if ( belongsToCurrentPlayer( board[ i ][ j ] ) ) {
-                    if ( isCapturePossibleForOnePiece( i, j ) ) {
+                    if ( isCapturePossible() ) {
                         if ( isCapturePossible( i, j, i + ( 2 * direction ), j - 2 ) ) {
                             int i2Child = i + ( 2 * direction );
                             int j2Child = j - 2;
                             CheckersState child = new CheckersState( currentPlayer, cloneBoard(), i, j, i2Child, j2Child );
                             child.capture( i, j, i2Child, j2Child );
+                            child.crown();
                             children.add( child );
                         }
                         if ( isCapturePossible( i, j, i + ( 2 * direction ), j + 2 ) ) {
@@ -65,6 +66,7 @@ public class CheckersState extends CheckersBoard {
                             int j2Child = j + 2;
                             CheckersState child = new CheckersState( currentPlayer, cloneBoard(), i, j, i2Child, j2Child );
                             child.capture( i, j, i2Child, j2Child );
+                            child.crown();
                             children.add( child );
                         }
                         if ( isCapturePossible( i, j, i - ( 2 * direction ), j - 2 ) ) {
@@ -72,6 +74,7 @@ public class CheckersState extends CheckersBoard {
                             int j2Child = j - 2;
                             CheckersState child = new CheckersState( currentPlayer, cloneBoard(), i, j, i2Child, j2Child );
                             child.capture( i, j, i2Child, j2Child );
+                            child.crown();
                             children.add( child );
                         }
                         if ( isCapturePossible( i, j, i - ( 2 * direction ), j + 2 ) ) {
@@ -79,6 +82,7 @@ public class CheckersState extends CheckersBoard {
                             int j2Child = j + 2;
                             CheckersState child = new CheckersState( currentPlayer, cloneBoard(), i, j, i2Child, j2Child );
                             child.capture( i, j, i2Child, j2Child );
+                            child.crown();
                             children.add( child );
                         }
 
@@ -117,6 +121,9 @@ public class CheckersState extends CheckersBoard {
             return score();
         }
         expandChildren();
+        if (children == null || children.isEmpty()) {
+            return score();
+        }
         if ( currentPlayer == player ) {
             result = Integer.MIN_VALUE;
 
@@ -186,14 +193,18 @@ public class CheckersState extends CheckersBoard {
             char[][] newBoard = cloneBoard();
             newBoard[ i + direction ][ j - 1 ] = newBoard[ i ][ j ];
             newBoard[ i ][ j ] = ' ';
-            children.add( new CheckersState( otherPlayer(), newBoard, i, j, i+direction, j-1) );
+            CheckersState child =  new CheckersState( otherPlayer(), newBoard, i, j, i+direction, j-1) ;
+            child.crown();
+            children.add(child);
         }
         if ( isInBoard( i + direction, j + 1 )
                 && board[ i + direction ][ j + 1 ] == ' ' ) {
             char[][] newBoard = cloneBoard();
             newBoard[ i + direction ][ j + 1 ] = newBoard[ i ][ j ];
             newBoard[ i ][ j ] = ' ';
-            children.add( new CheckersState( otherPlayer(), newBoard, i, j, i+direction, j+1 ) );
+            CheckersState child =  new CheckersState( otherPlayer(), newBoard, i, j, i+direction, j+1 ) ;
+            child.crown();
+            children.add(child);
         }
     }
 
